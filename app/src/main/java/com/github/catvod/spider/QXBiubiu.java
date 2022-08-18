@@ -123,7 +123,7 @@ public class QXBiubiu extends Spider {
             JSONArray videos = new JSONArray();
             ArrayList<String> jiequContents = subContent(parseContent, jiequshuzuqian, jiequshuzuhou);
             for (int i = 0; i < jiequContents.size(); i++) {
-                try {
+                //try {
                     String jiequContent = jiequContents.get(i);
                     String title = removeHtml(subContent(jiequContent, getRuleVal("biaotiqian"), getRuleVal("biaotihou")).get(0));
                     String pic = "";
@@ -145,16 +145,17 @@ public class QXBiubiu extends Spider {
                     }
                 }
                 JSONObject v = new JSONObject();
-                    v.put("vod_id", title + "$$$" + pic + "$$$" + link);
-                    v.put("vod_name", title);
-                    v.put("vod_pic", pic);
-                    v.put("vod_remarks", remark);
-                    videos.put(v);
+                v.put("vod_id", title + "$$$" + pic + "$$$" + link);
+                v.put("vod_name", title);
+                v.put("vod_pic", pic);
+                v.put("vod_remarks", mark);
+                videos.put(v);
                 //} catch (Throwable th) {
-                    //th.printStackTrace();
+                //th.printStackTrace();
+                //break;
                 //}
             }
-            JSONObject result = new JSONObject();
+            JSONObject resul = new JSONObject();
             result.put("page", pg);
             result.put("pagecount", Integer.MAX_VALUE);
             result.put("limit", 90);
