@@ -144,15 +144,15 @@ public class QXBiubiu extends Spider {
                         SpiderDebug.log(e);
                     }
                 }
-                    JSONObject v = new JSONObject();
+                JSONObject v = new JSONObject();
                     v.put("vod_id", title + "$$$" + pic + "$$$" + link);
                     v.put("vod_name", title);
                     v.put("vod_pic", pic);
                     v.put("vod_remarks", remark);
                     videos.put(v);
-                } catch (Throwable th) {
-                    th.printStackTrace();
-                }
+                //} catch (Throwable th) {
+                    //th.printStackTrace();
+                //}
             }
             JSONObject result = new JSONObject();
             result.put("page", pg);
