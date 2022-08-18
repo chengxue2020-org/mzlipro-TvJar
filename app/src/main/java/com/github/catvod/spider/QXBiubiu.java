@@ -123,7 +123,7 @@ public class QXBiubiu extends Spider {
             JSONArray videos = new JSONArray();
             ArrayList<String> jiequContents = subContent(parseContent, jiequshuzuqian, jiequshuzuhou);
             for (int i = 0; i < jiequContents.size(); i++) {
-                //try {
+                try {
                     String jiequContent = jiequContents.get(i);
                     String title = removeHtml(subContent(jiequContent, getRuleVal("biaotiqian"), getRuleVal("biaotihou")).get(0));
                     String pic = "";
@@ -136,26 +136,19 @@ public class QXBiubiu extends Spider {
                     pic = Misc.fixUrl(webUrl, pic);
                     String link = subContent(jiequContent, getRuleVal("lianjieqian"), getRuleVal("lianjiehou")).get(0);
                     link = getRuleVal("ljqianzhui").isEmpty() ? (link + getRuleVal("ljhouzhui")) : ("x:" + getRuleVal("ljqianzhui")) + link + getRuleVal("ljhouzhui");
-                    String mark = "";
-                    if (!getRuleVal("fubiaotiqian").isEmpty() && !getRuleVal("fubiaotihou").isEmpty()) {
-                        try {
-                            mark = subContent(jiequContent, getRuleVal("fubiaotiqian"), getRuleVal("fubiaotihou")).get(0).replaceAll("\\s+", "").replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
-                        } catch (Exception e) {
-                            SpiderDebug.log(e);
-                        }
+                    String remark = !getRuleVal("fubiaotiqian").isEmpty() && !getRuleVal("fubiaotihou").isEmpty() ?
+                            removeHtml(subContent(jiequContent, getRuleVal("fubiaotiqian"), getRuleVal("fubiaotihou")).get(0));
+                    JSONObject v = new JSONObject();
+                    v.put("vod_id", title + "$$$" + pic + "$$$" + link);
+                    v.put("vod_name", title);
+                    v.put("vod_pic", pic);
+                    v.put("vod_remarks", remark);
+                    videos.put(v);
+                } catch (Throwable th) {
+                    th.printStackTrace();
                 }
-                JSONObject v = new JSONObject();
-                v.put("vod_id", title + "$$$" + pic + "$$$" + link);
-                v.put("vod_name", title);
-                v.put("vod_pic", pic);
-                v.put("vod_remarks", mark);
-                videos.put(v);
-                //} catch (Throwable th) {
-                //th.printStackTrace();
-                //break;
-                //}
             }
-            JSONObject resul = new JSONObject();
+            JSONObject result = new JSONObject();
             result.put("page", pg);
             result.put("pagecount", Integer.MAX_VALUE);
             result.put("limit", 90);
