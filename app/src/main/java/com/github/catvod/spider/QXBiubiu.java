@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 import okhttp3.Call;
 
-public class NXBiubiu extends Spider {
+public class QXBiubiu extends Spider {
 
     @Override
     public void init(Context context) {
