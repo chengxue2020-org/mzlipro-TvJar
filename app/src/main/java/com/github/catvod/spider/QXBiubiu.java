@@ -228,13 +228,7 @@ public class NXBiubiu extends Spider {
             } else {
                 playList.add(idInfo[0] + "$" + idInfo[2]);
             }
-            String cover = idInfo[1], title = idInfo[0], area = "";
-            String director = "";
-            String actor = "";
-            String desc = "";
-            String remark = "";
-            String year = "";
-            String category = "";
+            String cover = idInfo[1], title = idInfo[0], desc = "", category = "", area = "", year = "", remark = "", director = "", actor = "";
 
             if (!getRuleVal("leixinqian").isEmpty() && !getRuleVal("leixinhou").isEmpty()) {
                 try {
