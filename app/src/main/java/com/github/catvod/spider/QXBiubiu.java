@@ -136,13 +136,14 @@ public class QXBiubiu extends Spider {
                     pic = Misc.fixUrl(webUrl, pic);
                     String link = subContent(jiequContent, getRuleVal("lianjieqian"), getRuleVal("lianjiehou")).get(0);
                     link = getRuleVal("ljqianzhui").isEmpty() ? (link + getRuleVal("ljhouzhui")) : ("x:" + getRuleVal("ljqianzhui")) + link + getRuleVal("ljhouzhui");
-                    String remark = if (!getRuleVal("gengxinqian").isEmpty() && !getRuleVal("gengxinhou").isEmpty()) {
-                    try {
-                        mark = subContent(jiequContent, getRuleVal("gengxinqian"), getRuleVal("gengxinhou")).get(0).replaceAll("\\s+", "").replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
-                    } catch (Exception e) {
-                        SpiderDebug.log(e);
+                    String remark = 
+                    if (!getRuleVal("gengxinqian").isEmpty() && !getRuleVal("gengxinhou").isEmpty()) {
+                        try {
+                            mark = subContent(jiequContent, getRuleVal("gengxinqian"), getRuleVal("gengxinhou")).get(0).replaceAll("\\s+", "").replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
+                        } catch (Exception e) {
+                            SpiderDebug.log(e);
+                        }
                     }
-                }
                     JSONObject v = new JSONObject();
                     v.put("vod_id", title + "$$$" + pic + "$$$" + link);
                     v.put("vod_name", title);
