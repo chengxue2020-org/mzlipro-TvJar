@@ -123,7 +123,7 @@ public class QXBiubiu extends Spider {
             JSONArray videos = new JSONArray();
             ArrayList<String> jiequContents = subContent(parseContent, jiequshuzuqian, jiequshuzuhou);
             for (int i = 0; i < jiequContents.size(); i++) {
-                try {
+                //try {
                     String jiequContent = jiequContents.get(i);
                     String title = removeHtml(subContent(jiequContent, getRuleVal("biaotiqian"), getRuleVal("biaotihou")).get(0));
                     String pic = "";
@@ -136,17 +136,24 @@ public class QXBiubiu extends Spider {
                     pic = Misc.fixUrl(webUrl, pic);
                     String link = subContent(jiequContent, getRuleVal("lianjieqian"), getRuleVal("lianjiehou")).get(0);
                     link = getRuleVal("ljqianzhui").isEmpty() ? (link + getRuleVal("ljhouzhui")) : ("x:" + getRuleVal("ljqianzhui")) + link + getRuleVal("ljhouzhui");
-                    String remark = !getRuleVal("fubiaotiqian").isEmpty() && !getRuleVal("fubiaotihou").isEmpty() ?
-                            removeHtml(subContent(jiequContent, getRuleVal("fubiaotiqian"), getRuleVal("fubiaotihou")).get(0)) : "".replaceAll("\\s+", "").replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
-                    JSONObject v = new JSONObject();
-                    v.put("vod_id", title + "$$$" + pic + "$$$" + link);
-                    v.put("vod_name", title);
-                    v.put("vod_pic", pic);
-                    v.put("vod_remarks", remark);
-                    videos.put(v);
-                } catch (Throwable th) {
-                    th.printStackTrace();
+                    String mark = "";
+                if (!getRuleVal("fubiaotiqian").isEmpty() && !getRuleVal("fubiaotihou").isEmpty()) {
+                    try {
+                        mark = subContent(jiequContent, getRuleVal("fubiaotiqian"), getRuleVal("fubiaotihou")).get(0).replaceAll("\\s+", "").replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
+                    } catch (Exception e) {
+                        SpiderDebug.log(e);
+                    }
                 }
+                JSONObject v = new JSONObject();
+                v.put("vod_id", title + "$$$" + pic + "$$$" + link);
+                v.put("vod_name", title);
+                v.put("vod_pic", pic);
+                v.put("vod_remarks", mark);
+                videos.put(v);
+                //} catch (Throwable th) {
+                //th.printStackTrace();
+                //break;
+                //}
             }
             JSONObject result = new JSONObject();
             result.put("page", pg);
@@ -159,22 +166,6 @@ public class QXBiubiu extends Spider {
             SpiderDebug.log(e);
         }
         return null;
-    }
-
-    private static String removeUnicode(String str) {
-        Pattern pattern = Pattern.compile("(\\\\u(\\w{4}))");
-        Matcher matcher = pattern.matcher(str);
-        while (matcher.find()) {
-            String full = matcher.group(1);
-            String ucode = matcher.group(2);
-            char c = (char) Integer.parseInt(ucode, 16);
-            str = str.replace(full, c + "");
-        }
-        return str;
-    }
-
-    String removeHtml(String text) {
-        return Jsoup.parse(text).text();
     }
 
     @Override
