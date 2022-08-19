@@ -223,7 +223,7 @@ public class QXBiubiu extends Spider {
                             String link = subContent(lastParseContents.get(j), getRuleVal("bflianjieqian"), getRuleVal("bflianjiehou")).get(0);
                             String bfqianzhui = getRuleVal("bfqianzhui");
                             if (!bfqianzhui.isEmpty()) {
-                                link = webUrl + bfqianzhui + link;
+                                link = bfqianzhui + link;
                             }
                             vodItems.add(title + "$" + link);
                         }
