@@ -139,7 +139,7 @@ public class QXBiubiu extends Spider {
                     String remark = "";
                     if (!getRuleVal("fubiaotiqian").isEmpty() && !getRuleVal("fubiaotihou").isEmpty()) {
                         try {
-                            remark = subContent(jiequContent, getRuleVal("fubiaotiqian"), getRuleVal("fubiaotihou")).get(0).replaceAll("\\s+", "").replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
+                            remark = subContent(jiequContent, getRuleVal("fubiaotiqian"), getRuleVal("fubiaotihou")).get(0).replaceAll("[\\s\\S]", "").replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
                         } catch (Exception e) {
                             SpiderDebug.log(e);
                         }
