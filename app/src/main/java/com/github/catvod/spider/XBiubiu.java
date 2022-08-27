@@ -313,18 +313,14 @@ public class XBiubiu extends Spider {
     public String playerContent(String flag, String id, List<String> vipFlags) {
         try {
             fetchRule();
-            String webUrl = getRuleVal("url") + id;
-            SpiderDebug.log(webUrl);
+            String webUrl = getRuleVal("url") + id + getRuleVal("ua", Misc.UaWinChrome).trim();
+            if (ua.isEmpty())
+                ua = Misc.UaWinChrome;
+            headers.put("User-Agent", ua);
+            return headers;
             JSONObject result = new JSONObject();
             result.put("parse", 1);
             result.put("playUrl", "");
-            if (!rule.getPlayUa().isEmpty()) {
-                JSONObject headers = new JSONObject();
-                headers.put("User-Agent",rule.getPlayUa());
-                result.put("header",headers.toString());
-                System.out.println(result);
-             //   result.put("ua", rule.getPlayUa());
-            }
             result.put("url", webUrl);
             return result.toString();
         } catch (Exception e) {
