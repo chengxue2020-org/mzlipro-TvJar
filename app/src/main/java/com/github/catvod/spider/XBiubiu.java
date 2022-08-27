@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 import okhttp3.Call;
 
-public class XLBiubiu extends Spider {
+public class XBiubiu extends Spider {
 
     @Override
     public void init(Context context) {
