@@ -314,6 +314,7 @@ public class XBiubiu extends Spider {
         try {
             fetchRule();
             String webUrl = getRuleVal("url") + id;
+            SpiderDebug.log(webUrl);
             JSONObject result = new JSONObject();
             result.put("parse", 1);
             result.put("playUrl", "");
