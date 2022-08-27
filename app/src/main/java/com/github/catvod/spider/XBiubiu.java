@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 import okhttp3.Call;
 
-public class XLBiubiu extends Spider {
+public class XBiubiu extends Spider {
 
     @Override
     public void init(Context context) {
@@ -323,6 +323,14 @@ public class XLBiubiu extends Spider {
             SpiderDebug.log(e);
         }
         return "";
+        
+        protected HashMap<String, String> getHeaders(String url) {
+        HashMap<String, String> headers = new HashMap<>();
+        String ua = getRuleVal("ua", Misc.UaWinChrome).trim();
+        if (ua.isEmpty())
+            ua = Misc.UaWinChrome;
+        headers.put("User-Agent", ua);
+        return headers;
     }
 
     @Override
