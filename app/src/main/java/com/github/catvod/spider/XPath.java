@@ -338,8 +338,8 @@ public class XPath extends Spider {
             result.put("playUrl", "");
             if (!rule.getPlayUa().isEmpty()) {
                 JSONObject headers = new JSONObject();
-                headers.put(name:"User-Agent",rule.getPlayUa());
-                result.put(name:"header",headers.toString());
+                headers.put( name:"User-Agent",rule.getPlayUa());
+                result.put( name:"header",headers.toString());
                 System.out.println(result);
              //   result.put("ua", rule.getPlayUa());
             }
