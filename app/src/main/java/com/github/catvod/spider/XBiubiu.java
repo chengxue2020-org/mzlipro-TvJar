@@ -323,14 +323,6 @@ public class XBiubiu extends Spider {
             SpiderDebug.log(e);
         }
         return "";
-        
-        protected HashMap<String, String> getHeaders(String url) {
-        HashMap<String, String> headers = new HashMap<>();
-        String ua = getRuleVal("ua", Misc.UaWinChrome).trim();
-        if (ua.isEmpty())
-            ua = Misc.UaWinChrome;
-        headers.put("User-Agent", ua);
-        return headers;
     }
 
     @Override
